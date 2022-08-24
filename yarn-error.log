@@ -1,0 +1,62 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Jesus\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Users\Jesus\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Jesus\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\PuTTY;C:\Program Files\dotnet;C:\Users\Jesus\.cargo\bin;C:\Users\Jesus\AppData\Local\Microsoft\WindowsApps;C:\Users\Jesus\AppData\Roaming\npm;C:\Users\Jesus\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\heroku\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  16.14.2
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, open 'C:\Users\Jesus\AppData\Local\Yarn\Cache\v6\npm-@typescript-eslint-typescript-estree-5.33.1-a573bd360790afdcba80844e962d8b2031984f34-integrity\node_modules\@typescript-eslint\typescript-estree\.yarn-metadata.json'
+
+npm manifest: 
+  {
+    "name": "microservice-ddd",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": "node ./dist/index.js",
+      "build": "tsc -b",
+      "dev": "nodemon --legacy-watch ./src/index.ts "
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "amqplib": "^0.10.2",
+      "cors": "^2.8.5",
+      "express": "^4.18.1",
+      "express-async-errors": "^3.1.1"
+    },
+    "devDependencies": {
+      "@types/amqplib": "^0.8.2",
+      "@types/cors": "^2.8.12",
+      "@types/express": "^4.17.13",
+      "@types/node": "^18.7.5",
+      "@typescript-eslint/eslint-plugin": "^5.33.1",
+      "@typescript-eslint/parser": "^5.33.1",
+      "dotenv": "^16.0.1",
+      "eslint": "^8.22.0",
+      "eslint-config-standard": "^17.0.0",
+      "eslint-plugin-import": "^2.26.0",
+      "eslint-plugin-n": "^15.2.4",
+      "eslint-plugin-promise": "^6.0.0",
+      "nodemon": "^2.0.19",
+      "ts-node": "^10.9.1",
+      "typescript": "^4.7.4"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
