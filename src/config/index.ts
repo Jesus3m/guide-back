@@ -1,7 +1,9 @@
 export const config = {
     API: {
         PORT: process.env.PORT || 5000,
-        VERSION: process.env.VERSION || 1
+        VERSION: process.env.VERSION || 1,
+        HOSTNAME: process.env.HOSTNAME || 'localhost',
+        PROTOCOL: process.env.PROTOCOL || 'http'
     },
     AMQP: {
         HOST: process.env.AMQP_HOST || 'amqp://localhost:5672'
