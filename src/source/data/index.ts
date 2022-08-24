@@ -1,4 +1,4 @@
-import { CompanyMongoDatasource } from './company.ds'
+import { CompanyMongoDatasource } from './company.mongo.ds'
 
 export const CompanyDatasource = CompanyMongoDatasource
 

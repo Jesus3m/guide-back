@@ -6,22 +6,30 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"CreateCompanyDTO": {
+			"CompanyEntity": {
 				"properties": {
-					"name": {
+					"id": {
 						"type": "string"
 					},
-					"phone": {
+					"name": {
 						"type": "string"
 					},
 					"nit": {
 						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
 					}
 				},
 				"required": [
+					"id",
 					"name",
-					"phone",
-					"nit"
+					"nit",
+					"address",
+					"phone"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -30,7 +38,7 @@
 		"securitySchemes": {}
 	},
 	"info": {
-		"title": "company-service",
+		"title": "guide-back",
 		"version": "1.0.0",
 		"license": {
 			"name": "ISC"
@@ -40,6 +48,35 @@
 	"openapi": "3.0.0",
 	"paths": {
 		"/company": {
+			"get": {
+				"operationId": "GetCompanies",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/CompanyEntity"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
 			"post": {
 				"operationId": "CreateCompany",
 				"responses": {
@@ -48,23 +85,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"properties": {
-										"id": {
-											"type": "string"
-										},
-										"description": {
-											"type": "string"
-										},
-										"name": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"id",
-										"description",
-										"name"
-									],
-									"type": "object"
+									"$ref": "#/components/schemas/CompanyEntity"
 								}
 							}
 						}
@@ -77,11 +98,101 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/CreateCompanyDTO"
+								"$ref": "#/components/schemas/CompanyEntity"
 							}
 						}
 					}
 				}
+			}
+		},
+		"/company/{id}": {
+			"put": {
+				"operationId": "UpdateCompany",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CompanyEntity"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CompanyEntity"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteCompany",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CompanyEntity"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "GetCompanyById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CompanyEntity"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},
