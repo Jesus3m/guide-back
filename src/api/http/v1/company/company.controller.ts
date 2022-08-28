@@ -1,6 +1,6 @@
 import { Body, Delete, Get, Path, Post, Put, Query, Route } from 'tsoa'
 import { CompanyService } from '@core/company/company.service'
-import { CompanyEntity } from '../../../../core/company/company.entity'
+import { CompanyDBCredentials, CompanyEntity } from '../../../../core/company/company.entity'
 
 @Route('company')
 export class CompanyController {
@@ -15,27 +15,24 @@ export class CompanyController {
         return [data]
     }
 
-    @Post('/')
-    async createCompany (@Body() body: CompanyEntity): Promise<CompanyEntity> {
+    @Post('')
+    async createCompany (@Body() body: CompanyEntity & CompanyDBCredentials): Promise<CompanyEntity> {
         const data = await this.service.createCompany(body)
         return data
     }
 
-    @Put('/{id}')
+    @Put('{id}')
     async updateCompany (@Body() body: CompanyEntity, @Path('id') id: string): Promise<CompanyEntity> {
-        const data = await this.service.createCompany(body)
-        return data
+        return {} as CompanyEntity
     }
 
-    @Delete('/{id}')
+    @Delete('{id}')
     async deleteCompany (@Path('id') id: string): Promise<CompanyEntity> {
-        const data = await this.service.createCompany(id)
-        return data
+        return {} as CompanyEntity
     }
 
-    @Get('/{id}')
+    @Get('{id}')
     async getCompanyById (@Path('id') id: string): Promise<CompanyEntity> {
-        const data = await this.service.createCompany(id)
-        return data
+        return {} as CompanyEntity
     }
 }

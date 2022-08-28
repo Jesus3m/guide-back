@@ -3,11 +3,11 @@ import { BuildOptions, Dialect, Model, ModelAttributes, ModelOptions, Sequelize 
 import mysql, { Connection } from 'mysql2'
 import { config } from '..'
 
-export interface IModel<T> extends Model<T> {
+export interface IModel<T extends object> extends Model<T> {
     setDataValues: (column: string, value: any) => void
 }
 
-export type ModelConversion<T> = typeof Model & {
+export type ModelConvert<T extends object> = typeof Model & {
     new(values?: T, options?: BuildOptions): IModel<T>
 }
 
@@ -21,11 +21,11 @@ export class SqlConnection {
     static password: string
 
     static connect (): Connection {
-        SqlConnection.host = config.MYSQL.HOST!
-        SqlConnection.port = config.MYSQL.PORT!
-        SqlConnection.username = config.MYSQL.USER!
-        SqlConnection.password = config.MYSQL.PASS!
-        SqlConnection.dialect = config.MYSQL.DIALECT! as Dialect
+        SqlConnection.host = config.MYSQL.HOST
+        SqlConnection.port = config.MYSQL.PORT
+        SqlConnection.username = config.MYSQL.USER
+        SqlConnection.password = config.MYSQL.PASS
+        SqlConnection.dialect = config.MYSQL.DIALECT as Dialect
 
         SqlConnection.mainConnection = mysql.createConnection({
             host: config.MYSQL.HOST,
@@ -53,7 +53,8 @@ export class SqlConnection {
             SqlConnection?.createDatabase(tenant)
             const conn = new Sequelize(tenant, SqlConnection.username, SqlConnection.password, {
                 host: SqlConnection.host,
-                dialect: SqlConnection.dialect
+                dialect: SqlConnection.dialect,
+                logging: false
             })
             if (params?.cache) {
                 SqlConnection.connections[tenant] = {
@@ -67,9 +68,11 @@ export class SqlConnection {
             return SqlConnection.connections[tenant]!.conn!
     }
 
-    static modelFactory<T> (model: string, schema: ModelAttributes<Model, T>, tenant: string, options?: ModelOptions) {
+    static modelFactory<T extends object> (model: string, schema: ModelAttributes<Model, T>, tenant: string, options?: ModelOptions) {
         const conn = SqlConnection.useDB(tenant, { cache: true })
-        const currentModel = <ModelConversion<T>>conn.define<Model<T>>(model, schema, options)
-        return currentModel
+        if (!conn.models[model]) {
+             <ModelConvert<T>>conn.define<Model<T>>(model, schema, options)
+        }
+        return <ModelConvert<T>>conn.models[model]
     }
 }

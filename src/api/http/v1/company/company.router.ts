@@ -6,19 +6,11 @@ import { Responser } from '@common/utils/Response'
 const router = Router()
 
 router.get('/', async (req: Request, res: Response) => {
-    const companyController = new CompanyController(new CompanyService(req.context))
-
-    const data = await companyController.createCompany(req.body)
-
-    new Responser(data, data ? 200 : 404).send(res)
+    new Responser({}, 200).send(res)
 })
 
 router.get('/:id', async (req: Request, res: Response) => {
-    const companyController = new CompanyController(new CompanyService(req.context))
-
-    const data = await companyController.createCompany(req.body)
-
-    new Responser(data, data ? 200 : 404).send(res)
+    new Responser({}, 200).send(res)
 })
 
 router.put('/:id', async (req: Request, res: Response) => {

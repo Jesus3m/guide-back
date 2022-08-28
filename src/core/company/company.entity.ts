@@ -5,3 +5,9 @@ export interface CompanyEntity {
     address: string
     phone: string
 }
+
+export interface CompanyDBCredentials {
+    host: string
+    password: string
+    user: string
+}

@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Jesus\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @types/Sequelize
+  C:\Program Files\nodejs\node.exe C:\Users\Jesus\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add -D @types/ nanoid
 
 PATH: 
   C:\Users\Jesus\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Jesus\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\PuTTY;C:\Program Files\dotnet;C:\Users\Jesus\.cargo\bin;C:\Users\Jesus\AppData\Local\Microsoft\WindowsApps;C:\Users\Jesus\AppData\Roaming\npm;C:\Users\Jesus\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\heroku\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
@@ -14,8 +14,8 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fSequelize: Not found
-      at Request.params.callback [as _callback] (C:\Users\Jesus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66138:18)
+  Error: https://registry.yarnpkg.com/@types%2f: Request "https://registry.yarnpkg.com/@types%2f" returned a 405
+      at Request.params.callback [as _callback] (C:\Users\Jesus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66147:18)
       at Request.self.callback (C:\Users\Jesus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140883:22)
       at Request.emit (node:events:526:28)
       at Request.<anonymous> (C:\Users\Jesus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141855:10)
@@ -34,7 +34,7 @@ npm manifest:
     "main": "index.js",
     "scripts": {
       "swagger": "tsoa spec",
-      "gen-docs": "npm run swagger",
+      "docs": "npm run swagger",
       "start": "cross-env NODE_ENV=production node ./dist/index.js",
       "build": "tsc -b",
       "dev": "nodemon --legacy-watch ./src/index.ts"
@@ -51,6 +51,8 @@ npm manifest:
       "moment": "^2.29.4",
       "mongoose": "^6.5.2",
       "mysql2": "^2.3.3",
+      "nanoid": "^4.0.0",
+      "node-cron": "^3.0.2",
       "sequelize": "^6.21.4",
       "swagger-ui-express": "^4.5.0",
       "tsoa": "^4.1.1"
@@ -62,6 +64,7 @@ npm manifest:
       "@types/module-alias": "^2.0.1",
       "@types/mongoose": "^5.11.97",
       "@types/node": "^18.7.5",
+      "@types/node-cron": "^3.0.2",
       "@types/swagger-ui-express": "^4.1.3",
       "@typescript-eslint/eslint-plugin": "^5.33.1",
       "@typescript-eslint/parser": "^5.33.1",
@@ -302,6 +305,11 @@ Lockfile:
     version "0.7.31"
     resolved "https://registry.npmjs.org/@types/ms/-/ms-0.7.31.tgz"
     integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
+  
+  "@types/node-cron@^3.0.2":
+    version "3.0.2"
+    resolved "https://registry.npmjs.org/@types/node-cron/-/node-cron-3.0.2.tgz"
+    integrity sha512-SK/4GYWiWvGLPl/yv+Tm5oLYbzMx1V3y7CsNTvOb3vF8O9oXH11U6/zckISHnBl4YH8MvXHFIUXbYoBONSdmzw==
   
   "@types/node@*", "@types/node@^18.7.5":
     version "18.7.5"
@@ -1920,14 +1928,9 @@ Lockfile:
     dependencies:
       moment ">= 2.9.0"
   
-  "moment@>= 2.9.0", moment@^2.29.1:
+  "moment@>= 2.9.0", moment@^2.29.1, moment@^2.29.4:
     version "2.29.4"
     resolved "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
-    integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
-  
-  moment@^2.29.4:
-    version "2.29.4"
-    resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
     integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
   
   mongodb-connection-string-url@^2.5.2:
@@ -2011,6 +2014,11 @@ Lockfile:
     dependencies:
       lru-cache "^4.1.3"
   
+  nanoid@^4.0.0:
+    version "4.0.0"
+    resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-4.0.0.tgz#6e144dee117609232c3f415c34b0e550e64999a5"
+    integrity sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==
+  
   natural-compare@^1.4.0:
     version "1.4.0"
     resolved "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
@@ -2025,6 +2033,13 @@ Lockfile:
     version "2.6.2"
     resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
     integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+  
+  node-cron@^3.0.2:
+    version "3.0.2"
+    resolved "https://registry.npmjs.org/node-cron/-/node-cron-3.0.2.tgz"
+    integrity sha512-iP8l0yGlNpE0e6q1o185yOApANRe47UPbLf4YxfbiNHt/RU5eBcGB/e0oudruheSf+LQeDMezqC5BVAb5wwRcQ==
+    dependencies:
+      uuid "8.3.2"
   
   nodemon@^2.0.19:
     version "2.0.19"
@@ -2789,7 +2804,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz"
     integrity sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==
   
-  uuid@^8.3.2:
+  uuid@8.3.2, uuid@^8.3.2:
     version "8.3.2"
     resolved "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz"
     integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==

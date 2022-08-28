@@ -2,24 +2,25 @@
 import 'express-async-errors'
 import './config/dotenv'
 import './config/module-aliases'
-import { MongoDBConnection } from '@config/connections/mongo'
+import { MongoConnection } from '@config/connections/mongo'
 import { intiHttpServer } from './config/servers/http'
 import { startQueueServer } from '@config/servers/queue'
 import { config } from '@config/index'
 import { SqlConnection } from '@config/connections/sql'
 import { initCrons } from '@source/schedules/cron'
+import { defineModels } from '@common/utils/defineModel'
 
-// Start Mongodb connection
-MongoDBConnection.connect()
+MongoConnection.connect() // Start Mongodb connection
 
-SqlConnection.connect()
-const conn = SqlConnection.useDB('empiretive', { cache: true })
+SqlConnection.connect() // Start Sql Connection
+
+defineModels() // Register all sequelize model for each tenant
+
 const app = intiHttpServer() // HTTP SERVER
 startQueueServer() // Message Broker Listeners
 
 app.listen(config.API.PORT, () => {
-    console.log('Company Service Listen')
+    console.log(`${ config.API.SERVICE_PATH } Service Listen`)
 })
 
-// Init Schedules Jobs
-initCrons()
+initCrons() // Init Schedules Jobs

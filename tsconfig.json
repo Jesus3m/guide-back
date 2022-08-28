@@ -111,8 +111,9 @@
       "@utils/*": ["common/utils/*"]
     },
     "typeRoots": ["./@types", "./node_modules/@types"],
-    "declaration": false
+    "declaration": false,
+    // "types": []
   },
-  "include": ["./src/", "./@types"],
-  "exclude": ["node_modules", ".logs", "upload"]
+  "include": ["./src/", "./@types", "./node_modules/@types"],
+  "exclude": [".logs", "upload"]
 }

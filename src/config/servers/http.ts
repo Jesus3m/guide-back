@@ -11,31 +11,34 @@ export const intiHttpServer = (): Application => {
 
     // Middlewares
     app.use(express.json())
-    // app.use(express.urlencoded({ extended: true }))
     app.use(cors({
         origin: '*'
     }))
 
+    // Set a context into each request
     const contextMiddleware = withContext(request => {
         return {
-            tenant: 'empiretive'
+            tenant: request.get('origin')?.split('.')[0] || request.hostname.split('.')[0]
         }
     })
     // Static Routes
-    app.use(express.static('public'))
 
-    // Router
-    app.use(`/api/v${ config.API.VERSION }`, [contextMiddleware], router)
+    const serviceUrl = config.API.SERVICE_URL || `${ config.API.PROTOCOL }://${ config.API.HOSTNAME }:${ config.API.PORT }/api/v${ config.API.VERSION }/${ config.API.SERVICE_PATH }`
 
+    app.use(`/api/v${ config.API.VERSION }/${ config.API.SERVICE_PATH }/public`, express.static('public'))
+
+    // Swagger documentation
     app.use(
-        '/api/v1/docs',
+        `/api/v${ config.API.VERSION }/${ config.API.SERVICE_PATH }/docs`,
         swaggerUi.serve,
         swaggerUi.setup(undefined, {
             swaggerOptions: {
-                url: '/swagger.json'
+                url: `${ serviceUrl }/public/swagger.json`
             }
         })
     )
+    // Router
+    app.use(`/api/v${ config.API.VERSION }`, [contextMiddleware], router)
 
     // Error Middleware
     app.use(ErrorMiddleware)
